@@ -3,7 +3,7 @@ Cartridge-Short-Name: JBOSSAS
 Display-Name: JBoss Application Server 7
 Description: The leading open source Java EE6 application server for enterprise Java
   applications. Popular development frameworks include Seam, CDI, Weld, and Spring.
-Version: '7'
+Version: '7.2'
 License: LGPL
 License-Url: http://www.gnu.org/copyleft/lesser.txt
 Source-Url: https://github.com/SiryjVyiko/jboss72.git
