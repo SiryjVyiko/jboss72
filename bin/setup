@@ -17,3 +17,5 @@ if [ -d "${OPENSHIFT_JBOSSAS_DIR}/.ssh" ] ; then
 fi
 
 [ -f "${OPENSHIFT_JBOSSAS_DIR}/.bash_profile" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.bash_profile ${OPENSHIFT_JBOSSAS_DIR}/home/
+[ -f "${OPENSHIFT_JBOSSAS_DIR}/.bash_history" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.bash_history /opt/repo/home/ ;
+[ -f "${OPENSHIFT_JBOSSAS_DIR}/.profile" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.profile /opt/repo/home/ ;
