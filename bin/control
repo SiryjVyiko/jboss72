@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+source /etc/jelastic/environment
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 JBOSSAS_BIN_DIR=${OPENSHIFT_JBOSSAS_DIR}/versions/7.2/bin
