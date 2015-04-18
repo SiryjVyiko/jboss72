@@ -8,14 +8,14 @@ service iptables save
 
 sed -i 's/_setPassword > \/dev\/null 2>\&1; local res=$?;/_setPassword 2>\&1; local res=$?;/' /usr/lib/jelastic/modules/passwd.module
 
-mkdir /opt/repo/pid, /opt/repo/logs;
+mkdir ${OPENSHIFT_JBOSSAS_DIR}/pid, ${OPENSHIFT_JBOSSAS_DIR}/logs;
 
 sed -i 's/opt\/repo:\/bin\/bash/opt\/repo\/home:\/bin\/bash/g' "/etc/passwd"
 
 [ -f ${OPENSHIFT_HOMEDIR}/.jboss-cli-history ] || touch ${OPENSHIFT_HOMEDIR}/.jboss-cli-history
 
-if [ -d "/opt/repo/.ssh" ] ; then
-    mv /opt/repo/.ssh /opt/repo/home/
+if [ -d "${OPENSHIFT_JBOSSAS_DIR}/.ssh" ] ; then
+    mv ${OPENSHIFT_JBOSSAS_DIR}/.ssh ${OPENSHIFT_JBOSSAS_DIR}/home/
 fi
 
-[ -f "/opt/repo/.bash_profile" ] && cp /opt/repo/.bash_profile /opt/repo/home/
+[ -f "${OPENSHIFT_JBOSSAS_DIR}/.bash_profile" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.bash_profile ${OPENSHIFT_JBOSSAS_DIR}/home/
