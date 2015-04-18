@@ -1,31 +1,21 @@
 #!/bin/bash -eu
 
-return 0;
-
-case "$1" in
-  -v|--version)
-    version="$2"
-esac
+source /etc/jelastic/environment;
 
 /sbin/iptables -t nat -I PREROUTING -p tcp -m tcp --dport 4949 -j REDIRECT --to-ports 9990
-/sbin/iptables -t nat -I PREROUTING -p tcp -m tcp --dport 4848 -j REDIRECT --to-ports 9999
+/sbin/iptables -t nat -I PREROUTING -p tcp -m tcp --dport 4848 -j REDIRECT --to-ports 9993
 service iptables save
 
 sed -i 's/_setPassword > \/dev\/null 2>\&1; local res=$?;/_setPassword 2>\&1; local res=$?;/' /usr/lib/jelastic/modules/passwd.module
 
 mkdir -p ${OPENSHIFT_JBOSSAS_DIR}/versions/7.2/{template,standalone/tmp,standalone/configuration,standalone/log,standalone/data,standalone/data/content,standalone/data/messagingbindings,standalone/data/messagingjournal,standalone/data/messaginglargemessages,standalone/data/tx-object-store,standalone/data/timer-service-data,standalone/deployments}
 
-#sed -i 's/opt\/repo:\/bin\/bash/opt\/repo\/home:\/bin\/bash/g' "/etc/passwd"
+sed -i 's/opt\/repo:\/bin\/bash/opt\/repo\/home:\/bin\/bash/g' "/etc/passwd"
 
-# Copy the version specific files up to jbossas directory
-#cp -r ${OPENSHIFT_JBOSSAS_DIR}/versions/${version}/standalone/configuration/* ${OPENSHIFT_JBOSSAS_DIR}/standalone/configuration
-#cp ${OPENSHIFT_JBOSSAS_DIR}/versions/${version}/bin/* ${OPENSHIFT_JBOSSAS_DIR}/bin
-
-# Initialize the JBoss CLI history file
 [ -f ${OPENSHIFT_HOMEDIR}/.jboss-cli-history ] || touch ${OPENSHIFT_HOMEDIR}/.jboss-cli-history
 
-#if [ -d "/opt/repo/.ssh" ] ; then
-#    mv /opt/repo/.ssh /opt/repo/home/
-#fi
+if [ -d "/opt/repo/.ssh" ] ; then
+    mv /opt/repo/.ssh /opt/repo/home/
+fi
 
-#[ -f "/opt/repo/.bash_profile" ] && cp /opt/repo/.bash_profile /opt/repo/home/
+[ -f "/opt/repo/.bash_profile" ] && cp /opt/repo/.bash_profile /opt/repo/home/
