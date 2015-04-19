@@ -24,4 +24,4 @@ fi
 cd /usr/java/latest/bin
 keypass=`tr -cd '[:alnum:]' < /dev/urandom | fold -w30 | head -n1`;
 ./keytool -genkeypair -alias serverkey -keyalg RSA -keysize 2048 -validity 7360 -keystore server.keystore -keypass $keypass -storepass $keypass -dname "cn=Server Administrator,o=Acme,c=GB";
-mv /usr/java/latest/bin/server.keystore ${OPENSHIFT_WILDFLY_DIR}/versions/${Version}/standalone/configuration/;
+mv /usr/java/latest/bin/server.keystore /opt/repo/versions/7.2/standalone/configuration/;
