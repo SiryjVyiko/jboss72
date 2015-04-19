@@ -2,6 +2,11 @@
 
 source /etc/jelastic/environment;
 
+cd /usr/java/latest/bin
+keypass=`tr -cd '[:alnum:]' < /dev/urandom | fold -w30 | head -n1`;
+./keytool -genkeypair -alias serverkey -keyalg RSA -keysize 2048 -validity 7360 -keystore server.keystore -keypass $keypass -storepass $keypass -dname "cn=Server Administrator,o=Acme,c=GB";
+mv /usr/java/latest/bin/server.keystore /opt/repo/versions/7.2/standalone/configuration/;
+
 /sbin/iptables -t nat -I PREROUTING -p tcp -m tcp --dport 4949 -j REDIRECT --to-ports 9990
 /sbin/iptables -t nat -I PREROUTING -p tcp -m tcp --dport 4848 -j REDIRECT --to-ports 9993
 /sbin/iptables -t nat -I PREROUTING -p tcp -m tcp --dport 443 -j REDIRECT --to-ports 8443
@@ -20,8 +25,3 @@ fi
 [ -f "${OPENSHIFT_JBOSSAS_DIR}/.bash_profile" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.bash_profile ${OPENSHIFT_JBOSSAS_DIR}/home/ ;
 [ -f "${OPENSHIFT_JBOSSAS_DIR}/.bash_history" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.bash_history /opt/repo/home/ ;
 [ -f "${OPENSHIFT_JBOSSAS_DIR}/.profile" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.profile /opt/repo/home/ ;
-
-cd /usr/java/latest/bin
-keypass=`tr -cd '[:alnum:]' < /dev/urandom | fold -w30 | head -n1`;
-./keytool -genkeypair -alias serverkey -keyalg RSA -keysize 2048 -validity 7360 -keystore server.keystore -keypass $keypass -storepass $keypass -dname "cn=Server Administrator,o=Acme,c=GB";
-mv /usr/java/latest/bin/server.keystore /opt/repo/versions/7.2/standalone/configuration/;
