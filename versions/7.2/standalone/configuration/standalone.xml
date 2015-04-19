@@ -32,6 +32,14 @@
                     <local default-user="$local"/>
                     <properties path="mgmt-users.properties" relative-to="jboss.server.config.dir"/>
                 </authentication>
+                 <authorization map-groups-to-roles="false">
+                    <properties path="mgmt-groups.properties" relative-to="jboss.server.config.dir"/>
+                </authorization>
+                <server-identities>
+                <ssl>
+                    <keystore path="server.keystore" relative-to="jboss.server.config.dir" keystore-password="theremustbethesslcertpass" alias="serverkey"/>
+                </ssl>
+                </server-identities>
             </security-realm>
             <security-realm name="ApplicationRealm">
                 <authentication>
