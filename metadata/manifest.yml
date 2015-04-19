@@ -129,6 +129,10 @@ Endpoints:
   Private-Port-Name: AJP_PORT
   Private-Port:      8009
   Public-Port-Name:  AJP_PROXY_PORT
+- Private-IP-Name: IP
+  Private-Port-Name: HTTPS_PORT
+  Private-Port: 8443
+  Public-Port-Name: APP_HTTPS_PORT
 Additional-Control-Actions:
 - threaddump
 Compatible-Versions:
