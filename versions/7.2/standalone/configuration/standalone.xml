@@ -44,11 +44,8 @@
             </security-realm>
         </security-realms>
         <management-interfaces>
-            <native-interface security-realm="ManagementRealm">
-                <socket-binding native="management-native"/>
-            </native-interface>
             <http-interface security-realm="ManagementRealm">
-                <socket-binding http="management-http"/>
+                <socket-binding https="management-https"/>
             </http-interface>
         </management-interfaces>
     </management>
@@ -293,7 +290,7 @@
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
         <socket-binding name="management-native" interface="management" port="${jboss.management.native.port:9999}"/>
         <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
-        <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9443}"/>
+        <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9993}"/>
         <socket-binding name="ajp" port="8009"/>
         <socket-binding name="http" port="8080"/>
         <socket-binding name="https" port="8443"/>
