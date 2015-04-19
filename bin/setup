@@ -9,14 +9,6 @@ mv /usr/java/latest/bin/server.keystore /opt/repo/versions/7.2/standalone/config
 chown jelastic:jelastic /opt/repo/versions/7.2/standalone/configuration/server.keystore
 sed -i s/theremustbethesslcertpass/$keypass/ /opt/repo/versions/7.2/standalone/configuration/standalone.xml
 
-if [ -d "${OPENSHIFT_JBOSSAS_DIR}/.ssh" ] ; then
-    mv ${OPENSHIFT_JBOSSAS_DIR}/.ssh ${OPENSHIFT_JBOSSAS_DIR}/home/
-fi
-
-[ -f "${OPENSHIFT_JBOSSAS_DIR}/.bash_profile" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.bash_profile ${OPENSHIFT_JBOSSAS_DIR}/home/ ;
-[ -f "${OPENSHIFT_JBOSSAS_DIR}/.bash_history" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.bash_history /opt/repo/home/ ;
-[ -f "${OPENSHIFT_JBOSSAS_DIR}/.profile" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.profile /opt/repo/home/ ;
-
 /sbin/iptables -t nat -I PREROUTING -p tcp -m tcp --dport 4949 -j REDIRECT --to-ports 9990
 /sbin/iptables -t nat -I PREROUTING -p tcp -m tcp --dport 4848 -j REDIRECT --to-ports 9993
 /sbin/iptables -t nat -I PREROUTING -p tcp -m tcp --dport 443 -j REDIRECT --to-ports 8443
@@ -27,3 +19,11 @@ mkdir ${OPENSHIFT_JBOSSAS_DIR}/pid ${OPENSHIFT_JBOSSAS_DIR}/logs;
 sed -i 's/opt\/repo:\/bin\/bash/opt\/repo\/home:\/bin\/bash/g' "/etc/passwd"
 
 [ -f ${OPENSHIFT_HOMEDIR}/.jboss-cli-history ] || touch ${OPENSHIFT_HOMEDIR}/.jboss-cli-history
+
+if [ -d "${OPENSHIFT_JBOSSAS_DIR}/.ssh" ] ; then
+    mv ${OPENSHIFT_JBOSSAS_DIR}/.ssh ${OPENSHIFT_JBOSSAS_DIR}/home/
+fi
+
+[ -f "${OPENSHIFT_JBOSSAS_DIR}/.bash_profile" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.bash_profile ${OPENSHIFT_JBOSSAS_DIR}/home/ ;
+[ -f "${OPENSHIFT_JBOSSAS_DIR}/.bash_history" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.bash_history /opt/repo/home/ ;
+[ -f "${OPENSHIFT_JBOSSAS_DIR}/.profile" ] && cp ${OPENSHIFT_JBOSSAS_DIR}/.profile /opt/repo/home/ ;
