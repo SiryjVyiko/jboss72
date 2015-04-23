@@ -32,11 +32,6 @@
                 <authentication>
                     <properties path="mgmt-users.properties" relative-to="jboss.server.config.dir"/>
                 </authentication>
-              <server-identities>
-                <ssl>
-                    <keystore path="server.keystore" relative-to="jboss.server.config.dir" keystore-password="theremustbethesslcertpass" alias="serverkey"/>
-                </ssl>
-                </server-identities>
             </security-realm>
             <security-realm name="ApplicationRealm">
                 <authentication>
@@ -49,7 +44,7 @@
                 <socket-binding native="management-native"/>
             </native-interface>
             <http-interface security-realm="ManagementRealm">
-                <socket-binding https="management-https"/>
+                <socket-binding http="management-http"/>
             </http-interface>
         </management-interfaces>
     </management>
