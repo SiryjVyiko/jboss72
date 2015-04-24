@@ -259,7 +259,6 @@ function build() {
 }
 
 function deploy() {
-    return 0;
   echo "Deploying JBoss"
 
   # if repo/deployments has any files in it, sync them to $JBOSSAS_DEPLOYMENTS_DIR
@@ -271,6 +270,7 @@ function deploy() {
 }
 
 function start() {
+return 0;
   echo "Starting $cartridge_type cartridge"
 
   if marker_present "enable_jpda"
